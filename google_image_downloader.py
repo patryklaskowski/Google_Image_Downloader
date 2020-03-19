@@ -307,6 +307,9 @@ def main():
 
     # Determine term to search
     search_term = get_flag_value(flag='--search')
+    if not search_term:
+        print(f'[INFO]: Search term value error | FAIL.')
+        raise Exception('Search term value incorrect.')
 
     # Determine amount of images to download
     try:
