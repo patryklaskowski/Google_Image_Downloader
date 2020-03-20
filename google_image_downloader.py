@@ -85,10 +85,10 @@ def get_anchors(driver, search_term, amount):
 
     ####################
     scroll = 1
-    while len(anchors) <= amount:
+    while len(anchors) < amount:
         # Scroll down untill number of images satisfy
         driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
-
+        time.sleep(1)
         anchors = get_anchors(search_term)
         print(f'[INFO]: After {scroll} scroll/s there is {len(anchors)} images on page | SUCCESS.')
 
@@ -97,7 +97,7 @@ def get_anchors(driver, search_term, amount):
             break
         scroll += 1
     ####################
-
+    print()
     return anchors
 
 
@@ -117,7 +117,7 @@ def get_http_sources(driver, anchors, amount):
                 time.sleep(2)
                 break
             except:
-                print(f'IDX: {idx} CANNOT BE CLICKED FOR THE {i+1} TIME.')
+                print(f'IDX: {idx} CANNOT BE CLICKED FOR THE {i+1} TIME.', end=' ')
 
         # IMAGES AFTER CLICK
         images = driver.find_elements_by_xpath('//img[@class="n3VNCb"]')
@@ -284,7 +284,7 @@ def wait_for_images_loaded(driver):
         time.sleep(1)
         stop += 1
         if stop ==1:
-            print('\nwaiting for <display: none;>', end=' ')
+            print('waiting for <display: none;>', end=' ')
         else:
             print('.', end='')
 
