@@ -76,7 +76,8 @@ def chrome_webdriver(run_headless, exec_path='chromedriver'):
 def get_anchors(driver, search_term, amount):
     print()
     def get_anchors(search_term):
-        return driver.find_elements_by_xpath('//img[@alt="Image result for ' + search_term + '"]/../..')
+        #return driver.find_elements_by_xpath('//img[@alt="Image result for ' + search_term + '"]/../..')
+        return driver.find_elements_by_xpath('//img[@class="rg_i Q4LuWd tx8vtf"]/../..')
 
     anchors = get_anchors(search_term)
 
@@ -311,6 +312,7 @@ def main():
         print(f'[INFO]: Search term value error | FAIL.')
         raise Exception('Search term value incorrect.')
 
+
     # Determine amount of images to download
     try:
         amount = get_flag_value(flag='--amount')
@@ -343,6 +345,7 @@ def main():
 
         # Initilize driver (selenium object that manipulate chrome browser)
         driver = chrome_webdriver(exec_path=exec_path, run_headless=run_headless)
+        # print(f'\n\n\nUSER AGENT:\n\n{driver.execute_script("return navigator.userAgent")}\n\n\n')
 
         # Create url from google image search pattern
         url = 'https://www.google.com/search?q=' + search_term.replace(' ', '+') + '&source=lnms&tbm=isch'
